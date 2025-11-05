@@ -1,6 +1,7 @@
 package Entity;
 
 import Interface.Displayable;
+import Utils.InputHandler;
 
 import java.time.LocalDate;
 
@@ -58,9 +59,12 @@ public class MedicalRecord implements Displayable {
     }
 
     public void setVisitDate(LocalDate visitDate) {
+        while (visitDate.isAfter(LocalDate.now())) {
+            System.out.println("Invalid visit date. It cannot be before registration date or after today.");
+            visitDate = InputHandler.getDateInput("Enter valid visit date: ");
+        }
         this.visitDate = visitDate;
     }
-
     public String getDiagnosis() {
         return diagnosis;
     }

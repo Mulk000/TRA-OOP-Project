@@ -1,6 +1,7 @@
 package Entity;
 
 import Interface.Displayable;
+import Utils.InputHandler;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,6 +46,13 @@ public class Patient extends Person implements Displayable {
     }
 
     public void setBloodGroup(String bloodGroup) {
+        List<String> validGroups = List.of("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-");
+
+        while (!validGroups.contains(bloodGroup)) {
+            System.out.println("Invalid blood group. Please enter one of the following: " + validGroups);
+            bloodGroup = InputHandler.getStringInput("Enter blood group: ");
+        }
+
         this.bloodGroup = bloodGroup;
     }
 
@@ -69,8 +77,13 @@ public class Patient extends Person implements Displayable {
     }
 
     public void setRegistrationDate(LocalDate registrationDate) {
+        while (registrationDate.isBefore(getDateOfBirth().plusDays(1)) || registrationDate.isAfter(LocalDate.now())) {
+            System.out.println("Invalid registration date. It must be after birth date and not in the future.");
+            registrationDate =InputHandler.getDateInput("Enter valid registration date (yyyy-MM-dd): ");
+        }
         this.registrationDate = registrationDate;
     }
+
 
     public String getInsuranceId() {
         return insuranceId;

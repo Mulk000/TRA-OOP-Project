@@ -1,6 +1,8 @@
 package Entity;
 
 import Interface.Displayable;
+import Utils.HelperUtils;
+import Utils.InputHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +84,10 @@ public class Department implements Displayable {
     }
 
     public void setAvailableBeds(int availableBeds) {
+        while (!HelperUtils.isValidNumber(availableBeds,0,bedCapacity)) {
+            System.out.println("Invalid number of available beds. It must be between 0 and " + bedCapacity + ".");
+            availableBeds = InputHandler.getIntInput("Enter valid available beds: ");
+        }
         this.availableBeds = availableBeds;
     }
 

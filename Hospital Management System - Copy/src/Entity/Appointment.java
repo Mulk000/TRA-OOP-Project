@@ -1,9 +1,12 @@
 package Entity;
 
 import Interface.Displayable;
+import Utils.HelperUtils;
+import Utils.InputHandler;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Appointment implements Displayable {
     private String appointmentId;
@@ -59,9 +62,12 @@ public class Appointment implements Displayable {
     }
 
     public void setAppointmentDate(LocalDate appointmentDate) {
+        while (appointmentDate==null||appointmentDate.isBefore(LocalDate.now())) {
+            System.out.println("Invalid appointment date. It cannot be before today or more than one year in the future.");
+            appointmentDate = InputHandler.getDateInput("Enter a valid appointment date (yyyy-MM-dd): ");
+        }
         this.appointmentDate = appointmentDate;
     }
-
     public String getAppointmentTime() {
         return appointmentTime;
     }
@@ -75,6 +81,13 @@ public class Appointment implements Displayable {
     }
 
     public void setStatus(String status) {
+        List<String> validStatuses = List.of("Scheduled", "Completed", "Cancelled", "Rescheduled");
+
+        while (!validStatuses.contains(status)) {
+            System.out.println("Invalid status. Please enter one of the following: " + validStatuses);
+            status = InputHandler.getStringInput("Enter valid appointment status: ");
+        }
+
         this.status = status;
     }
 
@@ -130,14 +143,20 @@ public class Appointment implements Displayable {
     }
 
 
-    public void reschedule() {
+    public void reschedule(LocalDate newDate,String newTime) {
+        this.appointmentDate = newDate;
+        this.appointmentTime = newTime;
+        this.status = "Rescheduled";
+
     }
 
     public void cancel() {
+        this.status = "Cancelled";
 
     }
 
     public void complete() {
+        this.status = "Completed";
     }
     public void addNotes(String notes) {
         this.notes = (this.notes == null ? "" : this.notes + "\n") + notes;

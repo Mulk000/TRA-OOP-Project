@@ -1,6 +1,8 @@
 package Entity;
 
 import Interface.Displayable;
+import Utils.HelperUtils;
+import Utils.InputHandler;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -77,6 +79,10 @@ public class Doctor extends Person implements Displayable {
     }
 
     public void setConsultationFee(Double consultationFee) {
+        while (!HelperUtils.isPositive(consultationFee)) {
+            System.out.println("Invalid consultation fee. It must be greater than 0.");
+            consultationFee = InputHandler.getDoubleInput("Enter a valid consultation fee: ");
+        }
         this.consultationFee = consultationFee;
     }
 

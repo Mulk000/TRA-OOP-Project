@@ -1,6 +1,7 @@
 package Entity;
 
 import Interface.Displayable;
+import Utils.InputHandler;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,6 +28,10 @@ public class OutPatient extends Patient implements Displayable {
     }
 
     public void setLastVisitDate(LocalDate lastVisitDate) {
+        while (lastVisitDate.isAfter(LocalDate.now()) || lastVisitDate.isBefore(getRegistrationDate())) {
+            System.out.println("Invalid date.Please try again");
+            lastVisitDate = InputHandler.getDateInput("Enter last visit date: ");
+        }
         this.lastVisitDate = lastVisitDate;
     }
 
@@ -54,22 +59,20 @@ public class OutPatient extends Patient implements Displayable {
     @Override
     public void displayInfo() {
         super.displayInfo();
-        System.out.println("visitCount: "+visitCount);
-        System.out.println("lastVisitDate: "+lastVisitDate);
-        System.out.println("preferredDoctorId: "+preferredDoctorId);
+        System.out.println("visitCount: " + visitCount);
+        System.out.println("lastVisitDate: " + lastVisitDate);
+        System.out.println("preferredDoctorId: " + preferredDoctorId);
 
     }
 
-    @Override
-    public void displaySummary() {
-
+    public void scheduleFollowUp(LocalDate visitDate) {
+        setLastVisitDate(visitDate);
+        setVisitCount(getVisitCount() + 1);
+        System.out.println("Follow-up scheduled successfully. Visit count updated to " + visitCount);
     }
 
-    public static void scheduleFollowUp(){
-
+    public void updateVisitCount(int visits) {
+        setVisitCount(visits);
+        System.out.println("Visit count updated successfully to " + visitCount);
     }
-    public static void  updateVisitCount(){
-
-    }
-
 }

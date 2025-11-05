@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class HelperUtils {
 
-    // Null Check Methods
+
     public static boolean isNull(Object obj) {
         return obj == null;
     }
@@ -27,7 +27,6 @@ public class HelperUtils {
         return str != null && !str.trim().isEmpty();
     }
 
-    // String Validation Methods
     public static boolean isValidString(String str) {
         return isNotNull(str);
     }
@@ -44,7 +43,7 @@ public class HelperUtils {
         return isValidString(str) && Pattern.matches(regex, str);
     }
 
-    // ID Generation Methods
+
     public static String generateId() {
         return UUID.randomUUID().toString();
     }
@@ -62,7 +61,7 @@ public class HelperUtils {
         return prefix + "-" + UUID.randomUUID().toString() + "-" + suffix;
     }
 
-    // Date Validation Methods
+
     public static boolean isValidDate(Date date) {
         return date != null;
     }
@@ -98,7 +97,7 @@ public class HelperUtils {
         return LocalDate.now().equals(given);
     }
 
-    // Numeric Validation Methods
+
     public static boolean isValidNumber(int num, int min, int max) {
         return num >= min && num <= max;
     }

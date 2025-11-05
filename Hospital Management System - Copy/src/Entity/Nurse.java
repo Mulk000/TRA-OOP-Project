@@ -1,6 +1,7 @@
 package Entity;
 
 import Interface.Displayable;
+import Utils.InputHandler;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,6 +39,10 @@ public class Nurse extends Person implements Displayable {
     }
 
     public void setShift(String shift) {
+        while (!shift.equalsIgnoreCase("Morning") && !shift.equalsIgnoreCase("Evening")&&!shift.equalsIgnoreCase("Night")) {
+            System.out.print("Invalid Shift");
+            shift = InputHandler.getStringInput("Enter Shift.");
+        }
         this.shift = shift;
     }
 

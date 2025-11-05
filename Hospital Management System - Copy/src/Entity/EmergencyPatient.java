@@ -1,6 +1,7 @@
 package Entity;
 
 import Interface.Displayable;
+import Utils.InputHandler;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -36,8 +37,13 @@ public class EmergencyPatient extends Patient implements Displayable {
     }
 
     public void setTriageLevel(int triageLevel) {
+        while (triageLevel < 1 || triageLevel > 5) {
+            System.out.println("Invalid triage level. Please enter a value between 1 and 5.");
+            triageLevel = InputHandler.getIntInput("Enter triage level (1-5): ");
+        }
         this.triageLevel = triageLevel;
     }
+
 
     public boolean isAdmittedViaER() {
         return admittedViaER;

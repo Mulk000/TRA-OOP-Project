@@ -48,22 +48,25 @@ public class Surgeon extends Doctor implements Displayable {
     @Override
     public void displayInfo() {
         super.displayInfo();
-        System.out.println("surgeriesPerformed: "+surgeriesPerformed);
-        System.out.println("surgeryTypes: "+surgeryTypes);
-        System.out.println("operationTheatreAccess: "+operationTheatreAccess);
+        System.out.println("surgeriesPerformed: " + surgeriesPerformed);
+        System.out.println("surgeryTypes: " + surgeryTypes);
+        System.out.println("operationTheatreAccess: " + operationTheatreAccess);
 
     }
 
-    @Override
-    public void displaySummary() {
-
+    public void performSurgery(String surgeryType) {
+        if (operationTheatreAccess) {
+            surgeriesPerformed++;
+            surgeryTypes.add(surgeryType);
+            System.out.println("Performed surgery: " + surgeryType);
+        } else {
+            System.out.println("No theatre access.");
+        }
     }
 
-    public static void  performSurgery(){
-
-    }
-    public static void updateSurgeryCount(){
-
+    public void updateSurgeryCount(int count) {
+        if (count > 0) {
+            this.surgeriesPerformed = count;
+        }
     }
 }
-

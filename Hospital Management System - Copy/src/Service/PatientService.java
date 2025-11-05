@@ -136,7 +136,7 @@ public class PatientService implements Manageable, Searchable {
         patient.setEmergencyContact(InputHandler.getStringInput("Enter patient emergencyContact: "));
         patient.setRegistrationDate(InputHandler.getDateInput("Enter patient registrationDate (yyyy-MM-dd): "));
         patient.setInsuranceId(InputHandler.getStringInput("Enter patient insurance ID: "));
-        patient.setVisitCount(Integer.parseInt(InputHandler.getStringInput("Enter visit count: ")));
+        patient.setVisitCount(InputHandler.getIntInput("Enter visit count: "));
         patient.setLastVisitDate(InputHandler.getDateInput("Enter last visit date (yyyy-MM-dd): "));
         patient.setPreferredDoctorId(InputHandler.getStringInput("Enter preferred doctor ID: "));
 

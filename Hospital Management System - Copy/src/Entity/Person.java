@@ -1,6 +1,7 @@
 package Entity;
 
 import Interface.Displayable;
+import Utils.InputHandler;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -59,14 +60,24 @@ public class Person implements Displayable {
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
+        while (!dateOfBirth.isBefore(LocalDate.now())) {
+            System.out.println("invalid Date of Birth .Please enter a valid Date of Birth");
+            dateOfBirth = InputHandler.getDateInput("Enter Date of Birth(yyyy-MM-dd): ");
+        }
         this.dateOfBirth = dateOfBirth;
     }
+
 
     public String getGender() {
         return gender;
     }
 
     public void setGender(String gender) {
+        while (gender.isBlank() || (!gender.equalsIgnoreCase("male") && !gender.equalsIgnoreCase("female"))) {
+            System.out.println("invalid Gender .Please enter a valid Gender");
+            gender = InputHandler.getStringInput("Enter Gender: ");
+
+        }
         this.gender = gender;
     }
 

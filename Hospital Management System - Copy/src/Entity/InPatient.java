@@ -2,6 +2,7 @@ package Entity;
 
 import Interface.Billable;
 import Interface.Displayable;
+import Utils.InputHandler;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +24,10 @@ public class InPatient extends Patient implements Displayable,Billable  {
     }
 
     public void setAdmissionDate(LocalDate admissionDate) {
+        while ((getRegistrationDate() !=null) && (admissionDate.isBefore(getRegistrationDate())||admissionDate.isAfter(LocalDate.now()))) {
+            System.out.println("Admission Date is null or before admission date.Please try again");
+            admissionDate = InputHandler.getDateInput("Enter Admission Date: ");
+        }
         this.admissionDate = admissionDate;
     }
 
@@ -31,6 +36,10 @@ public class InPatient extends Patient implements Displayable,Billable  {
     }
 
     public void setDischargeDate(LocalDate dischargeDate) {
+        while (admissionDate!=null && dischargeDate.isBefore(admissionDate)) {
+            System.out.println("Invalid Date Please try again");
+            dischargeDate = InputHandler.getDateInput("Enter Discharge Date: ");
+        }
         this.dischargeDate = dischargeDate;
     }
 
