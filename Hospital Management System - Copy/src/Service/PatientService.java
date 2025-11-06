@@ -1,9 +1,6 @@
 package Service;
 
-import Entity.EmergencyPatient;
-import Entity.InPatient;
-import Entity.OutPatient;
-import Entity.Patient;
+import Entity.*;
 import Interface.Manageable;
 import Interface.Searchable;
 import Utils.HelperUtils;
@@ -14,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Main.MainApplication.doctorService;
 import static Main.MainApplication.scanner;
 
 
@@ -37,7 +35,7 @@ public class PatientService implements Manageable, Searchable {
         patient.setFirstName(InputHandler.getStringInput("Enter doctor's first name: "));
         patient.setLastName(InputHandler.getStringInput("Enter doctor's last name: "));
         patient.setDateOfBirth(InputHandler.getDateInput("Enter doctor's date of birth (yyyy-MM-dd): "));
-        patient.setGender(InputHandler.getStringInput("Enter Patient gender: "));
+        patient.setGender(InputHandler.getStringInput("Enter Patient gender(Male,Female): "));
         patient.setPhoneNumber(InputHandler.getStringInput("Enter Patient phone number: "));
         patient.setEmail(InputHandler.getStringInput("Enter Patient email: "));
         patient.setAddress(InputHandler.getStringInput("Enter Patient address: "));
@@ -76,7 +74,7 @@ public class PatientService implements Manageable, Searchable {
         inPatient.setFirstName(InputHandler.getStringInput("Enter patient first name: "));
         inPatient.setLastName(InputHandler.getStringInput("Enter patient last name: "));
         inPatient.setDateOfBirth(InputHandler.getDateInput("Enter patient date of birth (yyyy-MM-dd): "));
-        inPatient.setGender(InputHandler.getStringInput("Enter patient gender: "));
+        inPatient.setGender(InputHandler.getStringInput("Enter patient gender(Male,Female): "));
         inPatient.setPhoneNumber(InputHandler.getStringInput("Enter patient phone number: "));
         inPatient.setEmail(InputHandler.getStringInput("Enter patient email: "));
         inPatient.setAddress(InputHandler.getStringInput("Enter patient address: "));
@@ -98,7 +96,17 @@ public class PatientService implements Manageable, Searchable {
         inPatient.setDischargeDate(InputHandler.getDateInput("Enter discharge date (yyyy-MM-dd): "));
         inPatient.setRoomNumber(InputHandler.getStringInput("Enter room number: "));
         inPatient.setBedNumber(InputHandler.getStringInput("Enter bed number: "));
-        inPatient.setAdmittingDoctorId(InputHandler.getStringInput("Enter admitting doctor ID: "));
+        String AdmittingDoctorId;
+        while (true) {
+            AdmittingDoctorId = (InputHandler.getStringInput("Enter the Admitting Doctor Id: "));
+            if (DoctorService.checkId(AdmittingDoctorId)) {
+                inPatient.setAdmittingDoctorId(AdmittingDoctorId);
+                break;
+            } else {
+                System.out.println("Doctor not found. Please enter a valid Doctor ID.");
+            }
+        }
+
         inPatient.setDailyCharges(Double.parseDouble(InputHandler.getStringInput("Enter daily charges: ")));
 
         return inPatient;
@@ -118,7 +126,7 @@ public class PatientService implements Manageable, Searchable {
         patient.setFirstName(InputHandler.getStringInput("Enter patient first name: "));
         patient.setLastName(InputHandler.getStringInput("Enter patient last name: "));
         patient.setDateOfBirth(InputHandler.getDateInput("Enter patient date of birth (yyyy-MM-dd): "));
-        patient.setGender(InputHandler.getStringInput("Enter patient gender: "));
+        patient.setGender(InputHandler.getStringInput("Enter patient gender(Male,Female): "));
         patient.setPhoneNumber(InputHandler.getStringInput("Enter patient phone number: "));
         patient.setEmail(InputHandler.getStringInput("Enter patient email: "));
         patient.setAddress(InputHandler.getStringInput("Enter patient address: "));
@@ -138,7 +146,16 @@ public class PatientService implements Manageable, Searchable {
         patient.setInsuranceId(InputHandler.getStringInput("Enter patient insurance ID: "));
         patient.setVisitCount(InputHandler.getIntInput("Enter visit count: "));
         patient.setLastVisitDate(InputHandler.getDateInput("Enter last visit date (yyyy-MM-dd): "));
-        patient.setPreferredDoctorId(InputHandler.getStringInput("Enter preferred doctor ID: "));
+        String PreferredDoctorId;
+        while (true) {
+            PreferredDoctorId = (InputHandler.getStringInput("Enter the Preferred Doctor Id: "));
+            if (DoctorService.checkId(PreferredDoctorId)) {
+                patient.setPreferredDoctorId(PreferredDoctorId);
+                break;
+            } else {
+                System.out.println("Doctor not found. Please enter a valid Doctor ID.");
+            }
+        }
 
         return patient;
     }
@@ -158,7 +175,7 @@ public class PatientService implements Manageable, Searchable {
         patient.setFirstName(InputHandler.getStringInput("Enter patient first name: "));
         patient.setLastName(InputHandler.getStringInput("Enter patient last name: "));
         patient.setDateOfBirth(InputHandler.getDateInput("Enter patient date of birth (yyyy-MM-dd): "));
-        patient.setGender(InputHandler.getStringInput("Enter patient gender: "));
+        patient.setGender(InputHandler.getStringInput("Enter patient gender(Male,Female): "));
         patient.setPhoneNumber(InputHandler.getStringInput("Enter patient phone number: "));
         patient.setEmail(InputHandler.getStringInput("Enter patient email: "));
         patient.setAddress(InputHandler.getStringInput("Enter patient address: "));
@@ -176,6 +193,23 @@ public class PatientService implements Manageable, Searchable {
         patient.setEmergencyContact(InputHandler.getStringInput("Enter patient emergency contact: "));
         patient.setRegistrationDate(InputHandler.getDateInput("Enter patient registration date (yyyy-MM-dd): "));
         patient.setInsuranceId(InputHandler.getStringInput("Enter patient insurance ID: "));
+
+        patient.setAdmissionDate(InputHandler.getDateInput("Enter the Admission Date: "));
+        patient.setDischargeDate(InputHandler.getDateInput("Enter the Discharge Date: "));
+        patient.setRoomNumber(InputHandler.getStringInput("Enter the Room Number: "));
+        patient.setBedNumber(InputHandler.getStringInput("Enter the Bed Number: "));
+        String AdmittingDoctorId;
+        while (true) {
+            AdmittingDoctorId = (InputHandler.getStringInput("Enter the Admitting Doctor Id: "));
+            if (DoctorService.checkId(AdmittingDoctorId)) {
+                patient.setAdmittingDoctorId(AdmittingDoctorId);
+                break;
+            } else {
+                System.out.println("Doctor not found. Please enter a valid Doctor ID.");
+            }
+        }
+        patient.setDailyCharges(InputHandler.getDoubleInput("Enter the Daily Charges: "));
+
         patient.setEmergencyType(InputHandler.getStringInput("Enter emergency type: "));
         patient.setArrivalMode(InputHandler.getStringInput("Enter arrival mode (e.g., ambulance, walk-in): "));
         patient.setTriageLevel(Integer.parseInt(InputHandler.getStringInput("Enter triage level (integer): ")));

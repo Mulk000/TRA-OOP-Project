@@ -13,6 +13,7 @@ public class MainApplication {
     public static DoctorService doctorService = new DoctorService();
 
     public static void main(String[] args) {
+        SampleData.initializeAllData();
         while (mainMenuOption != 8) {
             showMainMenu();
             mainMenuOption = scanner.nextInt();

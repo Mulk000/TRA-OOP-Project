@@ -6,7 +6,7 @@ import Utils.InputHandler;
 import java.time.LocalDate;
 import java.util.List;
 
-public class EmergencyPatient extends Patient implements Displayable {
+public class EmergencyPatient extends InPatient implements Displayable {
     private String emergencyType;
     private String arrivalMode;
     private int triageLevel;
@@ -53,19 +53,13 @@ public class EmergencyPatient extends Patient implements Displayable {
         this.admittedViaER = admittedViaER;
     }
 
-    public EmergencyPatient(String id, String firstName, String lastName, LocalDate dateOfBirth, String gender, String phoneNumber, String email, String address, String patientId, String bloodGroup, List<String> allergies, String emergencyContact, LocalDate registrationDate, String insuranceId, List<MedicalRecord> medicalRecords, List<Appointment> appointments, String emergencyType, String arrivalMode, boolean admittedViaER, int triageLevel) {
-        super(id, firstName, lastName, dateOfBirth, gender, phoneNumber, email, address, patientId, bloodGroup, allergies, emergencyContact, registrationDate, insuranceId, medicalRecords, appointments);
-        this.emergencyType = emergencyType;
-        this.arrivalMode = arrivalMode;
-        this.admittedViaER = admittedViaER;
-        this.triageLevel = triageLevel;
-    }
 
-    public EmergencyPatient(String emergencyType, String arrivalMode, boolean admittedViaER, int triageLevel) {
+    public EmergencyPatient(String id, String firstName, String lastName, LocalDate dateOfBirth, String gender, String phoneNumber, String email, String address, String patientId, String bloodGroup, List<String> allergies, String emergencyContact, LocalDate registrationDate, String insuranceId, List<MedicalRecord> medicalRecords, List<Appointment> appointments, LocalDate admissionDate, LocalDate dischargeDate, String roomNumber, String bedNumber, String admittingDoctorId, Double dailyCharges, String emergencyType, String arrivalMode, int triageLevel, boolean admittedViaER) {
+        super(id, firstName, lastName, dateOfBirth, gender, phoneNumber, email, address, patientId, bloodGroup, allergies, emergencyContact, registrationDate, insuranceId, medicalRecords, appointments, admissionDate, dischargeDate, roomNumber, bedNumber, admittingDoctorId, dailyCharges);
         this.emergencyType = emergencyType;
         this.arrivalMode = arrivalMode;
-        this.admittedViaER = admittedViaER;
         this.triageLevel = triageLevel;
+        this.admittedViaER = admittedViaER;
 
 }
 

@@ -31,7 +31,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         doctor.setFirstName(InputHandler.getStringInput("Enter doctor first name "));
         doctor.setLastName(InputHandler.getStringInput("Enter doctor last name "));
         doctor.setDateOfBirth(InputHandler.getDateInput("Enter doctor Date of Birth "));
-        doctor.setGender(InputHandler.getStringInput("Enter doctor Gender "));
+        doctor.setGender(InputHandler.getStringInput("Enter doctor Gender(Male,Female) "));
         doctor.setPhoneNumber(InputHandler.getStringInput("Enter doctor phone number "));
         doctor.setEmail(InputHandler.getStringInput("Enter doctor email "));
         doctor.setAddress(InputHandler.getStringInput("Enter doctor address "));
@@ -62,7 +62,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         surgeon.setFirstName(InputHandler.getStringInput("Enter doctor's first name: "));
         surgeon.setLastName(InputHandler.getStringInput("Enter doctor's last name: "));
         surgeon.setDateOfBirth(InputHandler.getDateInput("Enter doctor's date of birth: "));
-        surgeon.setGender(InputHandler.getStringInput("Enter doctor's gender: "));
+        surgeon.setGender(InputHandler.getStringInput("Enter doctor's gender(Male,Female): "));
         surgeon.setPhoneNumber(InputHandler.getStringInput("Enter doctor's phone number: "));
         surgeon.setEmail(InputHandler.getStringInput("Enter doctor's email: "));
         surgeon.setAddress(InputHandler.getStringInput("Enter doctor's address: "));
@@ -97,7 +97,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         consultant.setFirstName(InputHandler.getStringInput("Enter doctor's first name: "));
         consultant.setLastName(InputHandler.getStringInput("Enter doctor's last name: "));
         consultant.setDateOfBirth(InputHandler.getDateInput("Enter doctor's date of birth: "));
-        consultant.setGender(InputHandler.getStringInput("Enter doctor's gender: "));
+        consultant.setGender(InputHandler.getStringInput("Enter doctor's gender(Male,Female): "));
         consultant.setPhoneNumber(InputHandler.getStringInput("Enter doctor's phone number: "));
         consultant.setEmail(InputHandler.getStringInput("Enter doctor's email: "));
         consultant.setAddress(InputHandler.getStringInput("Enter doctor's address: "));
@@ -133,7 +133,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         generalPractitioner.setFirstName(InputHandler.getStringInput("Enter doctor's first name: "));
         generalPractitioner.setLastName(InputHandler.getStringInput("Enter doctor's last name: "));
         generalPractitioner.setDateOfBirth(InputHandler.getDateInput("Enter doctor's date of birth: "));
-        generalPractitioner.setGender(InputHandler.getStringInput("Enter doctor's gender: "));
+        generalPractitioner.setGender(InputHandler.getStringInput("Enter doctor's gender(Male,Female): "));
         generalPractitioner.setPhoneNumber(InputHandler.getStringInput("Enter doctor's phone number: "));
         generalPractitioner.setEmail(InputHandler.getStringInput("Enter doctor's email: "));
         generalPractitioner.setAddress(InputHandler.getStringInput("Enter doctor's address: "));

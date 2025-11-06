@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GeneralPractitioner extends Doctor implements Displayable {
     private boolean walkinAvailable;
-    private boolean  homeVisitAvailable ;
+    private boolean homeVisitAvailable;
     private boolean vaccinationCertified;
 
     public GeneralPractitioner() {
@@ -48,21 +48,24 @@ public class GeneralPractitioner extends Doctor implements Displayable {
     @Override
     public void displayInfo() {
         super.displayInfo();
-        System.out.println("walkinAvailable: "+walkinAvailable);
-        System.out.println("homeVisitAvailable: "+homeVisitAvailable);
-        System.out.println("vaccinationCertified: "+vaccinationCertified);
+        System.out.println("walkinAvailable: " + walkinAvailable);
+        System.out.println("homeVisitAvailable: " + homeVisitAvailable);
+        System.out.println("vaccinationCertified: " + vaccinationCertified);
     }
 
-    @Override
-    public void displaySummary() {
-
+    public void scheduleHomeVisit(Patient patient) {
+        if (homeVisitAvailable) {
+            System.out.println("Scheduled home visit for patient: " + patient.getPatientId());
+        } else {
+            System.out.println("Home visit not available.");
+        }
     }
 
-    public static void  scheduleHomeVisit(){
-
+    public void administerVaccine(Patient patient) {
+        if (vaccinationCertified) {
+            System.out.println("Administered vaccine to patient: " + patient.getPatientId());
+        } else {
+            System.out.println("Not certified to administer vaccines.");
+        }
     }
-    public static void administerVaccine(){
-
-    }
-
 }

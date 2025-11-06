@@ -204,7 +204,7 @@ public class AppointmentService implements Manageable<Appointment>, Searchable, 
             return;
         }
         appointmentList.add(appointment);
-        System.out.println("Appointment created successfully (from object).");
+        System.out.println("Appointment created successfully.");
     }
     public static void rescheduleAppointment(String appointmentId, LocalDate newDate, String newTime) {
         for (Appointment a : appointmentList) {
