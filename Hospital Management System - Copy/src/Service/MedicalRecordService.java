@@ -272,4 +272,26 @@ public class MedicalRecordService implements Manageable<MedicalRecord>, Searchab
             System.out.println("End of patient history report.");
         }
     }
+    public static void SampleDataMedicalRecord() {
+        for (int i = 1; i <= 12; i++) {
+            MedicalRecord record = new MedicalRecord();
+            record.setRecordId("MR-" + i);
+            record.setPatientId(PatientService.patientList.get(i % PatientService.patientList.size()).getPatientId());
+            record.setDoctorId(DoctorService.doctorList.get(i % DoctorService.doctorList.size()).getDoctorId());
+            record.setVisitDate(java.time.LocalDate.now().minusDays(i));
+            record.setDiagnosis("Diagnosis " + i);
+            record.setPrescription("Prescription " + i);
+            record.setTestResults("Test results " + i);
+            record.setNotes("Notes for visit " + i);
+
+            recordList.add(record);
+            Patient patient = PatientService.patientList.get(i % PatientService.patientList.size());
+            if (patient.getMedicalRecords() == null) {
+                patient.setMedicalRecords(new ArrayList<>());
+            }
+            patient.getMedicalRecords().add(record);
+
+        }
+        System.out.println("12 sample medical records added successfully.");
+    }
 }

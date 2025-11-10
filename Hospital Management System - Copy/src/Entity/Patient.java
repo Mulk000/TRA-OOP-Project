@@ -77,13 +77,18 @@ public class Patient extends Person implements Displayable {
     }
 
     public void setRegistrationDate(LocalDate registrationDate) {
-        while (registrationDate.isBefore(getDateOfBirth().plusDays(1)) || registrationDate.isAfter(LocalDate.now())) {
-            System.out.println("Invalid registration date. It must be after birth date and not in the future.");
-            registrationDate =InputHandler.getDateInput("Enter valid registration date (yyyy-MM-dd): ");
+        if (registrationDate == null) {
+            System.out.println("Registration date cannot be null");
+            return;
         }
+
+        if (this.getDateOfBirth() != null && registrationDate.isBefore(this.getDateOfBirth())) {
+            System.out.println("Registration date cannot be before date of birth");
+            return;
+        }
+
         this.registrationDate = registrationDate;
     }
-
 
     public String getInsuranceId() {
         return insuranceId;

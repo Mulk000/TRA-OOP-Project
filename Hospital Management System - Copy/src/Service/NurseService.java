@@ -7,6 +7,7 @@ import Interface.Manageable;
 import Interface.Searchable;
 import Utils.InputHandler;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -285,5 +286,24 @@ public class NurseService implements Manageable<Nurse>, Searchable {
             }
         }
         return false;
+    }
+    public static void addSampleDataNurses() {
+        for (int i = 1; i <= 5; i++) {
+            Nurse nurse = new Nurse();
+            nurse.setId("PER-" + i);
+            nurse.setNurseId("NUR-" + i);
+            nurse.setFirstName("NurseFirst" + i);
+            nurse.setLastName("NurseLast" + i);
+            nurse.setGender(i % 2 == 0 ? "Female" : "Male");
+            nurse.setPhoneNumber("9000000" + i);
+            nurse.setEmail("nurse" + i + "@hospital.com");
+            nurse.setAddress("City Block " + i);
+            nurse.setDateOfBirth(LocalDate.of(1990 + i, i, i + 10));
+            nurse.setShift(i % 3 == 0 ? "Night" : i % 2 == 0 ? "Evening" : "Morning");
+            nurse.setQualification("Diploma in Nursing");
+            nurse.setDepartmentId("DEP-" + i);
+            nurseList.add(nurse);
+        }
+        System.out.println("5 sample nurses added successfully.");
     }
 }

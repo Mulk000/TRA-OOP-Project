@@ -10,6 +10,7 @@ import Utils.HelperUtils;
 import Utils.InputHandler;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -84,8 +85,9 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         System.out.println("Surgeon added successfully with ID: " + surgeon.getDoctorId());
         String slots = InputHandler.getStringInput("Enter available slots (comma separated, e.g., 10:00,11:00,12:00): ");
         surgeon.setAvailableSlots(Arrays.asList(slots.split(",")));
-            return  surgeon;
+        return surgeon;
     }
+
     public Consultant addConsultant() {
         System.out.println("Adding Consultant...");
         Consultant consultant = new Consultant();
@@ -122,6 +124,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         consultant.setAvailableSlots(Arrays.asList(slots.split(",")));
         return consultant;
     }
+
     public GeneralPractitioner addGeneralPractitioner() {
         System.out.println("Adding General Practitioner...");
         GeneralPractitioner generalPractitioner = new GeneralPractitioner();
@@ -326,6 +329,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
             System.out.println("Doctor not found by ID.");
         }
     }
+
     public static Doctor addDoctor(String name, String specialization, String phone) {
         Doctor doctor = new Doctor();
         doctor.setId(HelperUtils.generateId("PER"));
@@ -337,12 +341,14 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         System.out.println("Doctor added: " + doctor.getFirstName() + " (" + specialization + ")");
         return doctor;
     }
+
     public static Doctor addDoctor(String name, String specialization, String phone, double consultationFee) {
         Doctor doctor = addDoctor(name, specialization, phone);
         doctor.setConsultationFee(consultationFee);
         System.out.println("Consultation fee set to: " + consultationFee);
         return doctor;
     }
+
     public static void addDoctor(Doctor doctor) {
         if (doctor == null) {
             System.out.println("Invalid doctor data.");
@@ -351,6 +357,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         doctorList.add(doctor);
         System.out.println("Doctor added successfully: " + doctor.getDoctorId());
     }
+
     public static void assignPatient(String doctorId, String patientId) {
         Doctor doctor = null;
         for (Doctor d : doctorList) {
@@ -372,6 +379,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         doctor.getAssignedPatients().add(patientId);
         System.out.println("Patient " + patientId + " assigned to Doctor " + doctor.getFirstName());
     }
+
     public static void assignPatient(Doctor doctor, Entity.Patient patient) {
         if (doctor == null || patient == null) {
             System.out.println("Invalid doctor or patient.");
@@ -385,6 +393,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         doctor.getAssignedPatients().add(patient.getPatientId());
         System.out.println("Patient " + patient.getPatientId() + " assigned to Doctor " + doctor.getFirstName());
     }
+
     public static void assignPatient(String doctorId, List<String> patientIds) {
         Doctor doctor = null;
         for (Doctor d : doctorList) {
@@ -406,6 +415,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         doctor.getAssignedPatients().addAll(patientIds);
         System.out.println("Patients " + patientIds + " assigned to Doctor " + doctor.getFirstName());
     }
+
     public static void displayDoctors() {
         if (doctorList.isEmpty()) {
             System.out.println("No doctors found.");
@@ -416,6 +426,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
             System.out.println("----------------------------");
         }
     }
+
     public static void displayDoctors(String specialization) {
         boolean found = false;
         for (Doctor doctor : doctorList) {
@@ -428,6 +439,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
             System.out.println("No doctors found with specialization: " + specialization);
         }
     }
+
     public static void displayDoctors(String departmentId, boolean showAvailableOnly) {
         boolean found = false;
         for (Doctor doctor : doctorList) {
@@ -476,6 +488,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
             System.out.println("No doctor found with this specialization.");
         }
     }
+
     public static void viewAvailableDoctors() {
         if (doctorList.isEmpty()) {
             System.out.println("No doctors available");
@@ -496,6 +509,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
             System.out.println("No available doctors found.");
         }
     }
+
     public static void assignPatientToDoctor() {
         if (doctorList.isEmpty()) {
             System.out.println("No doctors available to assign a patient.");
@@ -526,4 +540,97 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         System.out.println("Patient " + patientId + " assigned to Doctor " + doctor.getFirstName());
     }
 
+
+    public static void sampleDataDoctor() {
+        System.out.println("Adding sample doctors...");
+
+        for (int i = 0; i < 4; i++) {
+            Doctor doctor = null;
+
+            if (i == 0) {
+                Surgeon surgeon = new Surgeon();
+                surgeon.setId(HelperUtils.generateId("PER"));
+                surgeon.setDoctorId(HelperUtils.generateId("SR"));
+                surgeon.setFirstName("Ali");
+                surgeon.setLastName("Al Harthy");
+                surgeon.setGender("Male");
+                surgeon.setPhoneNumber("90111111");
+                surgeon.setEmail("ali.harthy@mail.com");
+                surgeon.setAddress("Muscat, Oman");
+                surgeon.setSpecialization("Surgery");
+                surgeon.setQualification("MBBS, MS");
+                surgeon.setExperienceYears(6);
+                surgeon.setConsultationFee(250.0);
+                surgeon.setSurgeriesPerformed(40);
+                surgeon.setOperationTheatreAccess(true);
+                surgeon.setSurgeryTypes(Arrays.asList("Cardiac", "Orthopedic"));
+                surgeon.setAvailableSlots(Arrays.asList("09:00", "11:00", "14:00"));
+                doctor = surgeon;
+            } else if (i == 1) {
+                Surgeon surgeon = new Surgeon();
+                surgeon.setId(HelperUtils.generateId("PER"));
+                surgeon.setDoctorId(HelperUtils.generateId("SR"));
+                surgeon.setFirstName("Fatma");
+                surgeon.setLastName("Al Hinai");
+                surgeon.setGender("Female");
+                surgeon.setPhoneNumber("90112222");
+                surgeon.setEmail("fatma.hinai@mail.com");
+                surgeon.setAddress("Sohar, Oman");
+                surgeon.setDateOfBirth(i == 0 ? LocalDate.of(1980, 3, 15) : LocalDate.of(1982, 7, 22));
+                surgeon.setSpecialization("Neurosurgery");
+                surgeon.setQualification("MBBS, MD");
+                surgeon.setExperienceYears(7);
+                surgeon.setConsultationFee(300.0);
+                surgeon.setSurgeriesPerformed(55);
+                surgeon.setOperationTheatreAccess(true);
+                surgeon.setSurgeryTypes(Arrays.asList("Neuro", "Spine"));
+                surgeon.setAvailableSlots(Arrays.asList("10:00", "13:00", "15:00"));
+                doctor = surgeon;
+            } else if (i == 2) {
+                Consultant consultant = new Consultant();
+                consultant.setId(HelperUtils.generateId("PER"));
+                consultant.setDoctorId(HelperUtils.generateId("CO"));
+                consultant.setFirstName("Hassan");
+                consultant.setLastName("Al Balushi");
+                consultant.setGender("Male");
+                consultant.setPhoneNumber("90223333");
+                consultant.setEmail("hassan.balushi@mail.com");
+                consultant.setAddress("Muscat, Oman");
+                consultant.setDateOfBirth(i == 0 ? LocalDate.of(1978, 11, 5) : LocalDate.of(1981, 4, 10));
+                consultant.setSpecialization("Internal Medicine");
+                consultant.setQualification("MBBS, MD");
+                consultant.setExperienceYears(10);
+                consultant.setConsultationFee(180.0);
+                consultant.setConsultationTypes(Arrays.asList("In-person", "Online"));
+                consultant.setOnlineConsultationAvailable(true);
+                consultant.setConsultationDuration(30);
+                consultant.setAvailableSlots(Arrays.asList("09:00", "12:00", "16:00"));
+                doctor = consultant;
+            } else if (i == 3) {
+                GeneralPractitioner gp = new GeneralPractitioner();
+                gp.setId(HelperUtils.generateId("PER"));
+                gp.setDoctorId(HelperUtils.generateId("GP"));
+                gp.setFirstName("Salim");
+                gp.setLastName("Al Lawati");
+                gp.setGender("Male");
+                gp.setPhoneNumber("90334444");
+                gp.setEmail("salim.lawati@mail.com");
+                gp.setAddress("Nizwa, Oman");
+                gp.setDateOfBirth(i == 0 ? LocalDate.of(1990, 1, 12) : LocalDate.of(1992, 6, 18));
+                gp.setSpecialization("General Practice");
+                gp.setQualification("MBBS");
+                gp.setExperienceYears(4);
+                gp.setConsultationFee(100.0);
+                gp.setWalkinAvailable(true);
+                gp.setHomeVisitAvailable(true);
+                gp.setVaccinationCertified(true);
+                gp.setAvailableSlots(Arrays.asList("08:00", "10:00", "13:00"));
+                doctor = gp;
+            }
+
+            doctorList.add(doctor);
+        }
+
+        System.out.println("Sample doctors successfully added: " + doctorList.size());
+    }
 }

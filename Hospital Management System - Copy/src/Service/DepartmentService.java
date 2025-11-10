@@ -270,4 +270,16 @@ public class DepartmentService implements Manageable<Department>, Searchable {
         }
         return false;
     }
+    public static void addSampleDepartments() {
+        for (int i = 1; i <= 3; i++) {
+            Department department = new Department();
+            department.setDepartmentId("DP-" + i);
+            department.setDepartmentName("Department-" + i);
+            department.setHeadDoctorId("DOC-" + i);
+            department.setBedCapacity(20 + i * 5);
+            department.setAvailableBeds(10 + i * 3);
+            departmentList.add(department);
+        }
+        System.out.println("3 sample departments added successfully.");
+    }
 }

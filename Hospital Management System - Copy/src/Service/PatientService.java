@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Main.MainApplication.doctorService;
-import static Main.MainApplication.scanner;
-
 
 public class PatientService implements Manageable, Searchable {
     public static List<Patient> patientList = new ArrayList<>();
@@ -217,6 +214,7 @@ public class PatientService implements Manageable, Searchable {
 
         return patient;
     }
+
     public static void save(Patient patient) {
         patientList.add(patient);
         System.out.println("patient has been added successfully");
@@ -359,8 +357,9 @@ public class PatientService implements Manageable, Searchable {
         }
         return patientList;
     }
-    public Patient addPatient(String firstName, String lastName, String phone){
-        Patient patient=new Patient();
+
+    public Patient addPatient(String firstName, String lastName, String phone) {
+        Patient patient = new Patient();
         patient.setId(HelperUtils.generateId("PER"));
         patient.setPatientId(HelperUtils.generateId("PAT"));
         patient.setFirstName(firstName);
@@ -369,8 +368,9 @@ public class PatientService implements Manageable, Searchable {
         patient.setRegistrationDate(LocalDate.now());
         return patient;
     }
-    public Patient addPatient(String firstName, String lastName, String phone, String bloodGroup, String email){
-        Patient patient=new Patient();
+
+    public Patient addPatient(String firstName, String lastName, String phone, String bloodGroup, String email) {
+        Patient patient = new Patient();
         patient.setId(HelperUtils.generateId("PER"));
         patient.setPatientId(HelperUtils.generateId("PAT"));
         patient.setFirstName(firstName);
@@ -381,9 +381,11 @@ public class PatientService implements Manageable, Searchable {
         patient.setRegistrationDate(LocalDate.now());
         return patient;
     }
+
     public Patient addPatient(Patient patient) {
         return patient;
     }
+
     public void searchPatients(String keyword) {
         if (patientList.isEmpty()) {
             System.out.println("No patients available.");
@@ -407,6 +409,7 @@ public class PatientService implements Manageable, Searchable {
             System.out.println("No patients found for keyword: " + keyword);
         }
     }
+
     public void searchPatients(String firstName, String lastName) {
         if (patientList.isEmpty()) {
             System.out.println("No patients available.");
@@ -426,6 +429,7 @@ public class PatientService implements Manageable, Searchable {
             System.out.println("No patients found with name: " + firstName + " " + lastName);
         }
     }
+
     public void displayPatients() {
         if (patientList.isEmpty()) {
             System.out.println("No patients available.");
@@ -437,6 +441,7 @@ public class PatientService implements Manageable, Searchable {
             patient.displayInfo();
         }
     }
+
     public void displayPatients(String filter) {
         if (patientList.isEmpty()) {
             System.out.println("No patients available.");
@@ -456,6 +461,7 @@ public class PatientService implements Manageable, Searchable {
             System.out.println("No patients found for filter: " + filter);
         }
     }
+
     public void displayPatients(int limit) {
         if (patientList.isEmpty()) {
             System.out.println("No patients available.");
@@ -527,8 +533,92 @@ public class PatientService implements Manageable, Searchable {
             System.out.println("Entity.Patient not found");
         }
     }
+
+    public static void sampleDatePatient() {
+        System.out.println("Adding sample patients...");
+
+        // --- Regular Patients ---
+        for (int i = 0; i < 3; i++) {
+            Patient patient = new Patient();
+            patient.setId(HelperUtils.generateId("PER"));
+            patient.setPatientId(HelperUtils.generateId("PAT"));
+            patient.setFirstName("Sample" + i);
+            patient.setLastName("Al Harthy" + i);
+            patient.setEmail("sample" + i + "@mail.com");
+            patient.setPhoneNumber("9000000" + i);
+            patient.setGender(i % 2 == 0 ? "Male" : "Female");
+            patient.setBloodGroup("A+");
+            patient.setDateOfBirth(LocalDate.of(1990, 1, 1).plusDays(i));
+            patient.setInsuranceId("INS" + i);
+            patient.setAddress("Muscat, Oman");
+            patient.setEmergencyContact("9900000" + i);
+            patient.setAllergies(List.of("Pollen"));
+            patient.setRegistrationDate(LocalDate.now().minusDays(i));
+            patient.setMedicalRecords(new ArrayList<>());
+            patient.setAppointments(new ArrayList<>());
+            patientList.add(patient);
+        }
+
+        // --- InPatients ---
+        for (int i = 0; i < 3; i++) {
+            InPatient patient = new InPatient();
+            patient.setId(HelperUtils.generateId("PER"));
+            patient.setPatientId(HelperUtils.generateId("INP"));
+            patient.setFirstName("InPatient" + i);
+            patient.setLastName("Al Balushi" + i);
+            patient.setEmail("inpatient" + i + "@mail.com");
+            patient.setPhoneNumber("9111111" + i);
+            patient.setGender(i % 2 == 0 ? "Male" : "Female");
+            patient.setRoomNumber("R" + (100 + i));
+            patient.setBedNumber("B" + (10 + i));
+            patient.setAdmissionDate(LocalDate.now().minusDays(i + 1));
+            patient.setDischargeDate(LocalDate.now().plusDays(3));
+            patient.setAdmittingDoctorId("DOC" + i);
+            patient.setDailyCharges(100.00 + (i * 20));
+            patient.setRegistrationDate(LocalDate.now().minusDays(i));
+            patient.setAddress("Muscat, Oman");
+            patient.setBloodGroup("B+");
+            patient.setDateOfBirth(LocalDate.of(1990, 5, 10).plusDays(i));
+            patient.setInsuranceId("INSP" + i);
+            patient.setEmergencyContact("9933333" + i);
+            patient.setAllergies(List.of(i%2==0?"Non":"Cat"));
+            patient.setMedicalRecords(new ArrayList<>());
+            patient.setAppointments(new ArrayList<>());
+            patientList.add(patient);
+        }
+
+        // --- Emergency Patients ---
+        for (int i = 0; i < 4; i++) {
+            EmergencyPatient patient = new EmergencyPatient();
+            patient.setId(HelperUtils.generateId("PER"));
+            patient.setPatientId(HelperUtils.generateId("EMP"));
+            patient.setFirstName("Emergency" + i);
+            patient.setLastName("Al Lawati" + i);
+            patient.setEmail("emergency" + i + "@mail.com");
+            patient.setPhoneNumber("9222222" + i);
+            patient.setGender(i % 2 == 0 ? "Male" : "Female");
+            patient.setAdmissionDate(LocalDate.now());
+            patient.setDischargeDate(LocalDate.now().plusDays(1));
+            patient.setRoomNumber("ER" + i);
+            patient.setBedNumber("EB" + i);
+            patient.setAdmittingDoctorId("DOC" + (i + 3));
+            patient.setDailyCharges(200.0);
+            patient.setEmergencyType("Accident");
+            patient.setArrivalMode("Ambulance");
+            patient.setTriageLevel(3);
+            patient.setAdmittedViaER(true);
+            patient.setRegistrationDate(LocalDate.now().minusDays(i));
+            patient.setAddress("Muscat, Oman");
+            patient.setBloodGroup("O+");
+            patient.setDateOfBirth(LocalDate.of(1992, 2, 15).plusDays(i));
+            patient.setInsuranceId("INS-E" + i);
+            patient.setEmergencyContact("9944444" + i);
+            patient.setAllergies(List.of(i%2==0?"Non":"Dust"));
+            patient.setMedicalRecords(new ArrayList<>());
+            patient.setAppointments(new ArrayList<>());
+            patientList.add(patient);
+        }
+
+        System.out.println("Sample patients successfully added: " + patientList.size());
+    }
 }
-
-
-
-

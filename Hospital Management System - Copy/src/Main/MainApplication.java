@@ -1,10 +1,17 @@
 package Main;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import Entity.*;
 import Service.*;
+
+import static Service.DepartmentService.departmentList;
+import static Service.DoctorService.doctorList;
+import static Service.NurseService.nurseList;
+import static Service.PatientService.patientList;
 
 public class MainApplication {
     public static Scanner scanner = new Scanner(System.in);
@@ -13,6 +20,7 @@ public class MainApplication {
     public static DoctorService doctorService = new DoctorService();
 
     public static void main(String[] args) {
+        addSampleDataForAll();
         while (mainMenuOption != 8) {
             showMainMenu();
             mainMenuOption = scanner.nextInt();
@@ -86,7 +94,7 @@ public class MainApplication {
             switch (option) {
                 case 1 -> {
                     System.out.println("Registering new patient...");
-                   PatientService.save(patientService.add());
+                    PatientService.save(patientService.add());
                 }
                 case 2 -> {
                     System.out.println("Registering inpatient...");
@@ -174,12 +182,12 @@ public class MainApplication {
                 }
                 case 2 -> {
                     System.out.println("Adding surgeon...");
-                        DoctorService.save(doctorService.addSurgeon());
+                    DoctorService.save(doctorService.addSurgeon());
 
                 }
                 case 3 -> {
                     System.out.println("Adding consultant...");
-                  DoctorService.save(doctorService.addConsultant());
+                    DoctorService.save(doctorService.addConsultant());
                 }
                 case 4 -> {
                     System.out.println("Adding general practitioner...");
@@ -252,7 +260,7 @@ public class MainApplication {
                 }
                 case 3 -> {
                     System.out.println("View Nurses by Department...");
-                     NurseService.viewNursesByDepartment();
+                    NurseService.viewNursesByDepartment();
                 }
                 case 4 -> {
                     System.out.println("View Nurses by Shift...");
@@ -343,11 +351,11 @@ public class MainApplication {
                 }
                 case 8 -> {
                     System.out.println("Completing appointment...");
-                   AppointmentService.save(appointmentService.add());
+                    AppointmentService.save(appointmentService.add());
                 }
                 case 9 -> {
                     System.out.println("Viewing upcoming appointments...");
-                        AppointmentService.viewUpcomingAppointments();
+                    AppointmentService.viewUpcomingAppointments();
 
                 }
                 case 10 -> {
@@ -413,7 +421,7 @@ public class MainApplication {
                 }
                 case 8 -> {
                     System.out.println("Exiting medical records management...");
-                       return;
+                    return;
                 }
                 default -> System.out.println("please enter a number from the menu");
             }
@@ -471,7 +479,7 @@ public class MainApplication {
                 }
                 case 6 -> {
                     System.out.println("Updating department information...");
-                   departmentService.updateDepartmentInfo();
+                    departmentService.updateDepartmentInfo();
                 }
                 case 7 -> {
                     System.out.println("Viewing department statistics...");
@@ -532,5 +540,63 @@ public class MainApplication {
 
             System.out.println();
         }
+    }
+
+    public static void addSampleDataForAll() {
+        PatientService.sampleDatePatient();
+        DoctorService.sampleDataDoctor();
+        NurseService.addSampleDataNurses();
+        DepartmentService.addSampleDepartments();
+        AppointmentService.SampleDateAppointment();
+        MedicalRecordService.SampleDataMedicalRecord();
+        linkHospitalData();
+
+    }
+
+    public static void linkHospitalData() {
+
+        for (int i = 0; i < doctorList.size(); i++) {
+            Doctor doctor = doctorList.get(i);
+            Department dept = departmentList.get(i % departmentList.size());
+            doctor.setDepartmentId(dept.getDepartmentId());
+
+            if (dept.getDoctors() == null) {
+                dept.setDoctors(new ArrayList<>());
+            }
+            dept.getDoctors().add(doctor);
+        }
+
+        for (int i = 0; i < nurseList.size(); i++) {
+            Nurse nurse = nurseList.get(i);
+            Department dept = departmentList.get(i % departmentList.size());
+            nurse.setDepartmentId(dept.getDepartmentId());
+
+            if (dept.getNurses() == null) {
+                dept.setNurses(new ArrayList<>());
+            }
+            dept.getNurses().add(nurse);
+        }
+
+        for (Patient patient : patientList) {
+            for (Doctor doctor : doctorList) {
+                if (doctor.getDepartmentId() != null) {
+                    if (doctor.getAssignedPatients() == null) {
+                        doctor.setAssignedPatients(new ArrayList<>());
+                    }
+                    doctor.getAssignedPatients().add(patient.getPatientId());
+                }
+            }
+
+            for (Nurse nurse : nurseList) {
+                if (nurse.getDepartmentId() != null) {
+                    if (nurse.getAssignedPatients() == null) {
+                        nurse.setAssignedPatients(new ArrayList<>());
+                    }
+                    nurse.getAssignedPatients().add(patient.getPatientId());
+                }
+            }
+        }
+
+        System.out.println("Doctors, nurses, and patients successfully linked to departments.");
     }
 }

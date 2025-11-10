@@ -305,4 +305,28 @@ public class AppointmentService implements Manageable<Appointment>, Searchable, 
         }
         System.out.println("Appointment not found.");
     }
-}
+    public static void SampleDateAppointment() {
+        for (int i = 1; i <= 15; i++) {
+            Appointment appointment = new Appointment();
+            appointment.setAppointmentId("AP-" + i);
+            Patient patient = PatientService.patientList.get(i % PatientService.patientList.size());
+            appointment.setPatientId(patient.getPatientId());
+            appointment.setDoctorId(DoctorService.doctorList.get(i % DoctorService.doctorList.size()).getDoctorId());
+            appointment.setPatientId("PT-" + ((i % 10) + 1));
+            appointment.setDoctorId("DOC-" + ((i % 5) + 1));
+            appointment.setAppointmentDate(LocalDate.now().plusDays(i));
+            appointment.setAppointmentTime((9 + (i % 8)) + ":00 AM");
+            appointment.setReason("Checkup " + i);
+            appointment.setNotes("Follow-up required " + i);
+            appointment.setStatus("Scheduled");
+            appointmentList.add(appointment);
+            if (patient.getAppointments() == null) {
+                patient.setAppointments(new ArrayList<>());
+            }
+            patient.getAppointments().add(appointment);
+        }
+        System.out.println("15 sample appointments added successfully.");
+    }
+
+
+    }
