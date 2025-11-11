@@ -231,17 +231,13 @@ public class PatientService implements Manageable, Searchable {
             System.out.println("Please enter valid id");
             id = scanner.nextLine();
         }
+
         Patient selectedPatient = null;
         for (Patient patient : patientList) {
             if (patient.getPatientId().equals(id)) {
                 selectedPatient = patient;
                 break;
             }
-        }
-
-        if (selectedPatient == null) {
-            System.out.println("patient is not found");
-            return null;
         }
         System.out.println("Enter your object");
         System.out.println("""
