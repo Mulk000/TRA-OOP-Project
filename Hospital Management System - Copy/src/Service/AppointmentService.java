@@ -103,19 +103,16 @@ public class AppointmentService implements Manageable<Appointment>, Searchable, 
         }
 
         String patientId = InputHandler.getStringInput("Enter patient ID to search appointments: ");
-        boolean found = false;
 
         for (Appointment a : appointmentList) {
             if (a.getPatientId().equalsIgnoreCase(patientId)) {
                 System.out.println("Appointment found:");
                 a.displayInfo();
-                found = true;
+                return;
             }
         }
-
-        if (!found) {
             System.out.println("No appointments found for this patient.");
-        }
+
     }
 
     @Override
@@ -126,22 +123,19 @@ public class AppointmentService implements Manageable<Appointment>, Searchable, 
         }
 
         String doctorId = InputHandler.getStringInput("Enter Doctor ID to search: ");
-        boolean found = false;
 
         for (Appointment a : appointmentList) {
             if (a.getDoctorId().equalsIgnoreCase(doctorId)) {
-                if (!found) {
                     System.out.println("Appointments for Doctor " + doctorId + ":");
-                }
+
                 a.displayInfo();
-                found = true;
+                return;
             }
         }
 
-        if (!found) {
             System.out.println("No appointments found for Doctor ID: " + doctorId);
         }
-    }
+
 
     @Override
     public void scheduleAppointment(Appointment appointment) {

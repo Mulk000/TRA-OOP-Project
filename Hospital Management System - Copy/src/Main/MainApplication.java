@@ -135,7 +135,7 @@ public class MainApplication {
                 }
                 case 7 -> {
                     System.out.println("Updating patient information...");
-                    patientService.updatePatient(patientService.editPatient());
+                    PatientService.editPatient();
                 }
                 case 8 -> {
                     System.out.println("Removing patient...");
@@ -402,7 +402,7 @@ public class MainApplication {
                 }
                 case 4 -> {
                     System.out.println("Viewing records by doctor...");
-                    recordService.searchByDoctorId();
+                    recordService.searchById();
                 }
                 case 5 -> {
                     System.out.println("Updating medical record...");

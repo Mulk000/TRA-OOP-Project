@@ -297,20 +297,20 @@ public class PatientService implements Manageable, Searchable {
         return selectedPatient;
     }
 
-    public static void updatePatient(Patient updatedPatient) {
-        if (updatedPatient == null) {
-            System.out.println("no updates to save");
-            return;
-        }
-        for (int i = 0; i < patientList.size(); i++) {
-            if (patientList.get(i).getPatientId().equals(updatedPatient.getPatientId())) {
-                patientList.set(i, updatedPatient);
-                System.out.println("patient updated successfully.");
-                return;
-            }
-        }
-        System.out.println("Updated patient not found in list");
-    }
+//    public static void updatePatient(Patient updatedPatient) {
+//        if (updatedPatient == null) {
+//            System.out.println("no updates to save");
+//            return;
+//        }
+//        for (int i = 0; i < patientList.size(); i++) {
+//            if (patientList.get(i).getPatientId().equals(updatedPatient.getPatientId())) {
+//                patientList.set(i, updatedPatient);
+//                System.out.println("patient updated successfully.");
+//                return;
+//            }
+//        }
+//        System.out.println("Updated patient not found in list");
+//    }
 
     public static String getPatientToRemove() {
         if (patientList.isEmpty()) {
@@ -490,50 +490,42 @@ public class PatientService implements Manageable, Searchable {
         System.out.println("Enter patient last name:");
         String lastName = scanner.nextLine().trim();
 
-        boolean found = false;
         for (Patient patient : patientList) {
             if (patient.getFirstName() != null && patient.getLastName() != null &&
                     patient.getFirstName().trim().equalsIgnoreCase(firstName) &&
                     patient.getLastName().trim().equalsIgnoreCase(lastName)) {
                 System.out.println("Entity.Patient found:");
                 patient.displayInfo();
-                found = true;
+                return;
             }
         }
-
-        if (!found) {
             System.out.println("No patient found with this name");
-        }
+
 
     }
 
     public void searchById() {
         if (patientList.isEmpty()) {
             System.out.println("No patients available");
+            return;
         }
-
         System.out.println("Enter patient Id to search:");
         String id = scanner.nextLine().trim();
 
-        boolean found = false;
         for (Patient patient : patientList) {
             if (patient.getPatientId() != null && patient.getPatientId().trim().equalsIgnoreCase(id)) {
-                System.out.println("Entity.Patient found:");
+                System.out.println("Patient found:");
                 patient.displayInfo();
-                found = true;
-                break;
+                return;
             }
         }
-
-        if (!found) {
-            System.out.println("Entity.Patient not found");
+            System.out.println("Patient not found");
         }
-    }
 
     public static void sampleDatePatient() {
         System.out.println("Adding sample patients...");
 
-        // --- Regular Patients ---
+
         for (int i = 0; i < 3; i++) {
             Patient patient = new Patient();
             patient.setId(HelperUtils.generateId("PER"));
@@ -555,7 +547,7 @@ public class PatientService implements Manageable, Searchable {
             patientList.add(patient);
         }
 
-        // --- InPatients ---
+
         for (int i = 0; i < 3; i++) {
             InPatient patient = new InPatient();
             patient.setId(HelperUtils.generateId("PER"));
@@ -583,7 +575,7 @@ public class PatientService implements Manageable, Searchable {
             patientList.add(patient);
         }
 
-        // --- Emergency Patients ---
+
         for (int i = 0; i < 4; i++) {
             EmergencyPatient patient = new EmergencyPatient();
             patient.setId(HelperUtils.generateId("PER"));

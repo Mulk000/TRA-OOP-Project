@@ -115,6 +115,7 @@ public class MedicalRecord implements Displayable {
     public void displayInfo() {
         System.out.println("recordId: "+ recordId);
         System.out.println("patientId: "+ patientId);
+        System.out.println("doctorId: "+ doctorId);
         System.out.println("visitDate: "+ visitDate);
         System.out.println("diagnosis: "+ diagnosis);
         System.out.println("prescription: "+ prescription);

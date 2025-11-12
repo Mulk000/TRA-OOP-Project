@@ -180,17 +180,15 @@ public class MedicalRecordService implements Manageable<MedicalRecord>, Searchab
             return;
         }
         String patientId = InputHandler.getStringInput("Enter patient ID to search: ");
-        boolean found = false;
         for (MedicalRecord record : recordList) {
             if (record.getPatientId().equalsIgnoreCase(patientId)) {
                 System.out.println("Medical record found:");
                 record.displayInfo();
-                found = true;
+                return;
             }
         }
-        if (!found) {
             System.out.println("No medical record found for this patient.");
-        }
+
     }
 
     @Override
@@ -199,21 +197,20 @@ public class MedicalRecordService implements Manageable<MedicalRecord>, Searchab
             System.out.println("No medical records available.");
             return;
         }
-        String id = InputHandler.getStringInput("Enter medical record ID to search: ");
-        boolean found = false;
+
+        String doctorId = InputHandler.getStringInput("Enter doctor ID to search: ");
+
         for (MedicalRecord record : recordList) {
-            if (record.getRecordId().equalsIgnoreCase(id)) {
+            if (record.getDoctorId().equalsIgnoreCase(doctorId)) {
                 System.out.println("Medical record found:");
                 record.displayInfo();
-                found = true;
-                break;
+                return;
             }
         }
-        if (!found) {
-            System.out.println("Medical record not found by ID.");
-        }
-    }
 
+            System.out.println("No medical record found for this doctor.");
+
+    }
     public static Boolean checkId(String idCheck) {
         for (MedicalRecord record : recordList) {
             if (record.getRecordId().equals(idCheck)) {
@@ -223,27 +220,6 @@ public class MedicalRecordService implements Manageable<MedicalRecord>, Searchab
         return false;
     }
 
-    public void searchByDoctorId() {
-        if (recordList.isEmpty()) {
-            System.out.println("No medical records available.");
-            return;
-        }
-
-        String doctorId = InputHandler.getStringInput("Enter doctor ID to search: ");
-        boolean found = false;
-
-        for (MedicalRecord record : recordList) {
-            if (record.getDoctorId().equalsIgnoreCase(doctorId)) {
-                System.out.println("Medical record found:");
-                record.displayInfo();
-                found = true;
-            }
-        }
-
-        if (!found) {
-            System.out.println("No medical record found for this doctor.");
-        }
-    }
 
     public static void generatePatientHistoryReport() {
         if (recordList.isEmpty()) {
@@ -252,7 +228,6 @@ public class MedicalRecordService implements Manageable<MedicalRecord>, Searchab
         }
 
         String patientId = InputHandler.getStringInput("Enter patient ID to generate history: ");
-        boolean found = false;
 
         System.out.println("========================================");
         System.out.println("      Patient Medical History Report     ");
@@ -262,22 +237,18 @@ public class MedicalRecordService implements Manageable<MedicalRecord>, Searchab
             if (record.getPatientId().equalsIgnoreCase(patientId)) {
                 record.displayInfo();
                 System.out.println("----------------------------------------");
-                found = true;
+                return;
             }
         }
-
-        if (!found) {
             System.out.println("No medical history found for this patient.");
-        } else {
-            System.out.println("End of patient history report.");
-        }
     }
     public static void SampleDataMedicalRecord() {
         for (int i = 1; i <= 12; i++) {
             MedicalRecord record = new MedicalRecord();
-            record.setRecordId("MR-" + i);
+            record.setRecordId(HelperUtils.generateId("MR"));
             record.setPatientId(PatientService.patientList.get(i % PatientService.patientList.size()).getPatientId());
             record.setDoctorId(DoctorService.doctorList.get(i % DoctorService.doctorList.size()).getDoctorId());
+
             record.setVisitDate(java.time.LocalDate.now().minusDays(i));
             record.setDiagnosis("Diagnosis " + i);
             record.setPrescription("Prescription " + i);

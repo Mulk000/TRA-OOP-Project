@@ -88,19 +88,16 @@ public class DepartmentService implements Manageable<Department>, Searchable {
         }
 
         String name = InputHandler.getStringInput("Enter department name to search: ");
-        boolean found = false;
 
         for (Department d : departmentList) {
             if (d.getDepartmentName().equalsIgnoreCase(name)) {
                 System.out.println("Department found:");
                 d.displayInfo();
-                found = true;
+            return;
             }
         }
-
-        if (!found) {
             System.out.println("No departments found with this name.");
-        }
+
     }
     @Override
     public void searchById() {
@@ -110,21 +107,16 @@ public class DepartmentService implements Manageable<Department>, Searchable {
         }
 
         String id = InputHandler.getStringInput("Enter department ID to search: ");
-        boolean found = false;
 
         for (Department d : departmentList) {
             if (d.getDepartmentId().equalsIgnoreCase(id)) {
                 System.out.println("Department found:");
                 d.displayInfo();
-                found = true;
-                break;
+             return;
             }
         }
-
-        if (!found) {
             System.out.println("Department not found by ID.");
         }
-    }
     private Department findById(String id) {
         for (Department d : departmentList) {
             if (d.getDepartmentId().equalsIgnoreCase(id.trim())) {

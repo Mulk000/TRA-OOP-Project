@@ -167,19 +167,14 @@ public class NurseService implements Manageable<Nurse>, Searchable {
             return;
         }
         String name = InputHandler.getStringInput("Enter nurse name to search:");
-
-        boolean found = false;
         for (Nurse nurse : nurseList) {
             if (nurse.getFirstName().equalsIgnoreCase(name) || nurse.getLastName().equalsIgnoreCase(name)) {
                 System.out.println("Nurse found:");
                 nurse.displayInfo();
-                found = true;
+               return;
             }
         }
-
-        if (!found) {
             System.out.println("No nurse found with this name.");
-        }
     }
 
     @Override
@@ -190,20 +185,15 @@ public class NurseService implements Manageable<Nurse>, Searchable {
         }
 
         String id = InputHandler.getStringInput("Enter nurse ID to search:");
-        boolean found = false;
-
         for (Nurse nurse : nurseList) {
             if (nurse.getId().equalsIgnoreCase(id)) {
                 System.out.println("Nurse found:");
                 nurse.displayInfo();
-                found = true;
-                break;
+                return;
             }
         }
-
-        if (!found) {
             System.out.println("Nurse not found by ID.");
-        }
+
     }
     public static void viewNursesByDepartment() {
         if (nurseList.isEmpty()) {
@@ -233,18 +223,14 @@ public class NurseService implements Manageable<Nurse>, Searchable {
         }
 
         String shift = InputHandler.getStringInput("Enter shift to filter (e.g., Morning, Evening, Night): ");
-        boolean found = false;
-
         for (Nurse nurse : nurseList) {
             if (nurse.getShift() != null && nurse.getShift().equalsIgnoreCase(shift)) {
                 nurse.displayInfo();
-                found = true;
+                return;
             }
         }
-
-        if (!found) {
             System.out.println("No nurses found for this shift.");
-        }
+
     }
     public static void assignNurseToPatient() {
         System.out.println("Assign Nurse to Patient...");

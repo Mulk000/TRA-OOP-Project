@@ -1,9 +1,6 @@
 package Service;
 
-import Entity.Consultant;
-import Entity.Doctor;
-import Entity.GeneralPractitioner;
-import Entity.Surgeon;
+import Entity.*;
 import Interface.Manageable;
 import Interface.Searchable;
 import Utils.HelperUtils;
@@ -13,9 +10,10 @@ import Utils.InputHandler;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-
+import static Service.PatientService.patientList;
 
 
 public class DoctorService implements Manageable<Doctor>, Searchable {
@@ -291,18 +289,15 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         }
         String name = InputHandler.getStringInput("Enter doctor name to search");
 
-        boolean found = false;
         for (Doctor doctor : doctorList) {
             if (doctor.getFirstName().equalsIgnoreCase(name) || doctor.getLastName().equalsIgnoreCase(name)) {
                 System.out.println("Doctor found:");
                 doctor.displayInfo();
-                found = true;
+                return;
             }
         }
-
-        if (!found) {
             System.out.println("No doctor found with this name.");
-        }
+
     }
 
 
@@ -314,20 +309,17 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         }
 
         String id = InputHandler.getStringInput("Enter doctor ID to search:");
-        boolean found = false;
 
         for (Doctor doctor : doctorList) {
             if (doctor.getDoctorId().equalsIgnoreCase(id)) {
                 System.out.println("Doctor found:");
                 doctor.displayInfo();
-                found = true;
-                break;
+                return;
             }
         }
 
-        if (!found) {
             System.out.println("Doctor not found by ID.");
-        }
+
     }
 
     public static Doctor addDoctor(String name, String specialization, String phone) {
@@ -474,19 +466,15 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         }
 
         String specialization = InputHandler.getStringInput("Enter specialization to search:");
-        boolean found = false;
-
         for (Doctor doctor : doctorList) {
             if (doctor.getSpecialization() != null && doctor.getSpecialization().equalsIgnoreCase(specialization)) {
                 System.out.println("Doctor found:");
                 doctor.displayInfo();
-                found = true;
+                return;
             }
         }
-
-        if (!found) {
             System.out.println("No doctor found with this specialization.");
-        }
+
     }
 
     public static void viewAvailableDoctors() {
@@ -494,53 +482,39 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
             System.out.println("No doctors available");
             return;
         }
-
-        boolean found = false;
-        for (Doctor doctor : doctorList) {
-            if (doctor.getAvailableSlots() != null && !doctor.getAvailableSlots().isEmpty()) {
-                System.out.println("----------------------------");
+      List<String> availableSlot= Arrays.asList(InputHandler.getStringInput("Enter available slot:").split(","));
+        for(Doctor doctor : doctorList) {
+            if (doctor.getAvailableSlots().equals(availableSlot)) {
+                System.out.println("The list of the available doctor .....");
                 doctor.displayInfo();
-                System.out.println("Available Slots: " + doctor.getAvailableSlots());
-                found = true;
+                return;
             }
         }
 
-        if (!found) {
             System.out.println("No available doctors found.");
-        }
+
     }
+
 
     public static void assignPatientToDoctor() {
-        if (doctorList.isEmpty()) {
-            System.out.println("No doctors available to assign a patient.");
+        if(doctorList.isEmpty()) {
+            System.out.println("No doctors available");
             return;
         }
+        String patientsId = InputHandler.getStringInput("Enter patient ID:");
+        String doctorId=InputHandler.getStringInput("Enter Doctor ID:");
+         for(Doctor doctor : doctorList) {
+             if (doctor.getDoctorId().equalsIgnoreCase(doctorId)){
+                 for(Patient patient : patientList) {
+                     if (patient.getPatientId().equalsIgnoreCase(patientsId)){
+                         doctor.getAssignedPatients().add(patientsId);
+                         System.out.println("The patient"+"("+ patientsId +")"+"assigned to doctor: "+ doctor.getFirstName());
+                         }
 
-        String patientId = InputHandler.getStringInput("Enter patient ID:");
-        String doctorId = InputHandler.getStringInput("Enter doctor ID:");
-
-        Doctor doctor = null;
-        for (Doctor d : doctorList) {
-            if (d.getDoctorId().equalsIgnoreCase(doctorId)) {
-                doctor = d;
-                break;
-            }
-        }
-
-        if (doctor == null) {
-            System.out.println("Doctor not found.");
-            return;
-        }
-
-        if (doctor.getAssignedPatients() == null) {
-            doctor.setAssignedPatients(new ArrayList<>());
-        }
-
-        doctor.getAssignedPatients().add(patientId);
-        System.out.println("Patient " + patientId + " assigned to Doctor " + doctor.getFirstName());
+                 }
+             }
+         }
     }
-
-
     public static void sampleDataDoctor() {
         System.out.println("Adding sample doctors...");
 
