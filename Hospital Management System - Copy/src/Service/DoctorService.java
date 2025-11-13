@@ -296,7 +296,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
                 return;
             }
         }
-            System.out.println("No doctor found with this name.");
+        System.out.println("No doctor found with this name.");
 
     }
 
@@ -318,7 +318,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
             }
         }
 
-            System.out.println("Doctor not found by ID.");
+        System.out.println("Doctor not found by ID.");
 
     }
 
@@ -473,7 +473,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
                 return;
             }
         }
-            System.out.println("No doctor found with this specialization.");
+        System.out.println("No doctor found with this specialization.");
 
     }
 
@@ -482,38 +482,64 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
             System.out.println("No doctors available");
             return;
         }
-      List<String> availableSlot= Arrays.asList(InputHandler.getStringInput("Enter available slot:").split(","));
-        for(Doctor doctor : doctorList) {
-            if (doctor.getAvailableSlots().equals(availableSlot)) {
-                System.out.println("The list of the available doctor .....");
+        String slot = InputHandler.getStringInput("enter available slot");
+
+        for (Doctor doctor : doctorList) {
+            List<String> availableSlots = doctor.getAvailableSlots();
+            if (availableSlots.stream().anyMatch(s -> s.equalsIgnoreCase(slot))) {
+                System.out.println("The List of The Available Doctors");
                 doctor.displayInfo();
                 return;
             }
         }
-
-            System.out.println("No available doctors found.");
-
+        System.out.println("No Doctors available at the specified time slot.");
     }
 
-
     public static void assignPatientToDoctor() {
-        if(doctorList.isEmpty()) {
+        if (doctorList.isEmpty()) {
             System.out.println("No doctors available");
             return;
         }
-        String patientsId = InputHandler.getStringInput("Enter patient ID:");
-        String doctorId=InputHandler.getStringInput("Enter Doctor ID:");
-         for(Doctor doctor : doctorList) {
-             if (doctor.getDoctorId().equalsIgnoreCase(doctorId)){
-                 for(Patient patient : patientList) {
-                     if (patient.getPatientId().equalsIgnoreCase(patientsId)){
-                         doctor.getAssignedPatients().add(patientsId);
-                         System.out.println("The patient"+"("+ patientsId +")"+"assigned to doctor: "+ doctor.getFirstName());
-                         }
+        if (doctorList.isEmpty()) {
+            System.out.println("No doctors available");
+            return;
+        }
 
-                 }
-             }
-         }
+        String patientId = InputHandler.getStringInput("Enter patient ID:");
+        String doctorId = InputHandler.getStringInput("Enter doctor ID:");
+
+        Patient patient = null;
+        for (Patient p : patientList) {
+            if (p.getPatientId().equalsIgnoreCase(patientId)) {
+                patient = p;
+                break;
+            }
+        }
+
+        if (patient == null) {
+            System.out.println("Patient not found.");
+            return;
+        }
+
+        Doctor doctor = null;
+        for (Doctor d : doctorList) {
+            if (d.getDoctorId().equalsIgnoreCase(doctorId)) {
+                doctor = d;
+                break;
+            }
+        }
+
+        if (doctor == null) {
+            System.out.println("Doctor not found.");
+            return;
+        }
+
+        if (doctor.getAssignedPatients() == null) {
+            doctor.setAssignedPatients(new ArrayList<>());
+        }
+
+        doctor.getAssignedPatients().add(patientId);
+        System.out.println("Patient " + patientId + " assigned to Doctor " + doctor.getFirstName());
     }
     public static void sampleDataDoctor() {
         System.out.println("Adding sample doctors...");
