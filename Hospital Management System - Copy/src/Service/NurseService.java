@@ -233,7 +233,6 @@ public class NurseService implements Manageable<Nurse>, Searchable {
 
     }
     public static void assignNurseToPatient() {
-        System.out.println("Assign Nurse to Patient...");
         String patientId = InputHandler.getStringInput("Enter Patient ID: ");
         if (!PatientService.checkId(patientId)) {
             System.out.println("Patient not found.");
@@ -254,15 +253,9 @@ public class NurseService implements Manageable<Nurse>, Searchable {
             return;
         }
 
-        if (nurse.getAssignedPatients() == null) {
-            nurse.setAssignedPatients(new ArrayList<>());
-        }
-
-        if (!nurse.getAssignedPatients().contains(patientId)) {
             nurse.getAssignedPatients().add(patientId);
-        }
 
-        System.out.println("Patient assigned to nurse successfully!");
+        System.out.println("Patient"+ patientId +" assigned to "+nurseId);
         System.out.println("----------------------------");
     }
     public static Boolean checkId(String idCheck) {

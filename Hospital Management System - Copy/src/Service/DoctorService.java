@@ -500,14 +500,8 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
             System.out.println("No doctors available");
             return;
         }
-        if (doctorList.isEmpty()) {
-            System.out.println("No doctors available");
-            return;
-        }
 
         String patientId = InputHandler.getStringInput("Enter patient ID:");
-        String doctorId = InputHandler.getStringInput("Enter doctor ID:");
-
         Patient patient = null;
         for (Patient p : patientList) {
             if (p.getPatientId().equalsIgnoreCase(patientId)) {
@@ -520,7 +514,7 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
             System.out.println("Patient not found.");
             return;
         }
-
+        String doctorId = InputHandler.getStringInput("Enter doctor ID:");
         Doctor doctor = null;
         for (Doctor d : doctorList) {
             if (d.getDoctorId().equalsIgnoreCase(doctorId)) {
@@ -532,10 +526,6 @@ public class DoctorService implements Manageable<Doctor>, Searchable {
         if (doctor == null) {
             System.out.println("Doctor not found.");
             return;
-        }
-
-        if (doctor.getAssignedPatients() == null) {
-            doctor.setAssignedPatients(new ArrayList<>());
         }
 
         doctor.getAssignedPatients().add(patientId);
